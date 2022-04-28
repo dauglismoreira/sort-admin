@@ -1,0 +1,167 @@
+.container-form {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-gap: 10px;
+}
+
+.container-form label {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container-form span {
+  width: 35%;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.container-form select, .container-form input, .container-form textarea {
+  width: 65%;
+}
+
+.container-form select, .container-form input, .container-form textarea {
+  border: solid 1px #cdcdcd;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.container-form input[type=checkbox] {
+  width: 10%;
+  margin-right: 5px;
+  margin-left: 25%;
+}
+
+.check-box-container {
+  width: 100%;
+  position: relative;
+}
+
+.check-box-container span {
+  font-weight: 500;
+  font-size: 11px;
+  margin-bottom: 10px;
+  transform: rotate(270deg);
+  position: absolute;
+  left: 7%;
+  background-color: #cdcdcd;
+  color: #fff;
+  margin-top: 20px;
+  top: 0;
+  width: 80px;
+  padding-left: 5px;
+  text-align: center;
+}
+
+.container-button {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.container-button button {
+  background-color: green;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  min-width: 160px;
+  padding: 8px 15px;
+  max-height: 35px;
+}
+
+
+
+
+
+.update-form ul li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pictures-container {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  border: solid 1px #cdcdcd;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 30px 0;
+}
+
+.container-send-image {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px !important;
+}
+
+.container-send-image .container-button {
+  margin: 0 10px 0;
+}
+
+.list-skills li {
+  height: 50px;
+}
+
+.list-skills li img {
+  width: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.pictures-container img {
+  width: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.pictures-container .picture {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.message {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.message p {
+  color: #fff;
+  font-size: 24px;
+  max-width: 380px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.image-message {
+  width: 100px;
+}
+
+.last-update {
+  margin-bottom: 8px;
+  background-color: rgb(214, 94, 94);
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-flex;
+  color: #fff;
+}
+
+.last-update b {
+  margin-right: 5px;
+}

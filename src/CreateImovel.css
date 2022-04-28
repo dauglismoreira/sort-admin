@@ -1,0 +1,51 @@
+.step-container {
+  border: solid 1px #cdcdcd;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.step-container h3 {
+  display: block;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.load-coord {
+  background-color: #333;
+  padding: 5px;
+  width: 100px;
+  font-size: 12px;
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  line-height: 1;
+  margin-left: 8px;
+  font-weight: 300;
+}
+
+#adress-number {
+  width: calc(65% - 100px);
+}
+
+.container-form.desc {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-form.desc input, .container-form.desc textarea {
+  width: 80%;
+}
+
+.container-form.desc span {
+  width: 10%;
+}
+
+.status-selector-active {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+#next-step {
+  display: none;
+}

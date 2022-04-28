@@ -1,0 +1,158 @@
+.container-imoveis {
+  width: 100%;
+}
+
+.row-imoveis {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 15px;
+  border-bottom: solid 1px #cdcdcd;
+}
+
+.row-imoveis.title {
+  padding: 5px 15px;
+}
+
+.picture {
+  width: 180px;
+  max-width: 180px;
+  height: 100px;
+  background-position: center center;
+  background-size: cover;
+  margin: 0 10px;
+  border-radius: 10px;
+}
+
+.sku {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  flex: 4;
+  display: flex;
+  align-items: center;
+}
+
+.status {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.update-btn {
+  flex: 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.update-btn select {
+  margin-right: 8px;
+  border: solid 1px #cdcdcd;
+  border-radius: 5px;
+  height: 35px;
+}
+
+.row-imoveis.title .sku, .row-imoveis.title .name, .row-imoveis.title .status {
+  font-weight: 600;
+}
+
+.state-information.d-none.d-sm-block {
+  display: none !important;
+}
+
+.container-imovel-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.container-imovel-options .container-button-add-imovel {
+  flex: 2;
+}
+
+.container-imovel-options .container-button-add-imovel button {
+  background-color: green;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  min-width: 160px;
+  padding: 8px 15px;
+  max-height: 35px;
+}
+
+.container-imovel-options .container-filters {
+  flex: 2;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container-imovel-options .container-filters div {
+  margin-left: 30px;
+}
+
+.container-imovel-options .container-filters input, .container-imovel-options .container-filters select {
+  margin-left: 8px;
+  height: 30px;
+  border-radius: 5px;
+  min-width: 200px;
+  border: solid 1px #cdcdcd;
+}
+
+.statusImage {
+  background-color: #cdcdcd;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.launchImage {
+  background-image: url('./assets/images/launch-grey.png');
+  background-position: center center;
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.starImage {
+  background-image: url('./assets/images/star-grey.png');
+  background-position: center center;
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.starImage.active {
+  background-image: url('./assets/images/star-active.png');
+}
+
+.launchImage.active {
+  background-image: url('./assets/images/launch-active.png');
+}
+
+.statusImage.active {
+  background-color: green;
+}
+
+.update-btn button {
+  border-radius: 20px;
+  border: none;
+  background-color: rgba(21, 148, 16, 0.2);
+}
+
+.breadcrumb {
+  display: none !important;
+}
