@@ -1,0 +1,55 @@
+.bg-primary2 {
+  background-color: #2f734c !important;
+}
+
+.c3-shape.c3-shape.c3-arc.c3-arc-Imóveis-Ativos {
+  fill: #2f734c !important;
+}
+
+.c3-legend-item.c3-legend-item-Imóveis-Ativos .c3-legend-item-tile {
+  stroke: #2f734c !important;
+}
+
+.analytics-list {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.analytics-list .access {
+  flex: 1;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.analytics-list .name {
+  flex: 4;
+  padding: 4px 0;
+}
+
+.analytics-list .name.title, .analytics-list .access.title {
+  font-weight: 600;
+}
+
+.analytics-list.items:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.box-access-height {
+  height: 454px;
+}
+
+.immobile-access-list {
+  overflow-y: scroll;
+  height: 360px;
+}
+
+.analytics-list.items .name {
+  cursor: pointer;
+}
+
+.analytics-list.items .name:hover {
+  background-color: #2f734c;
+  color: #fff;
+}

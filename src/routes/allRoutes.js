@@ -9,8 +9,20 @@ import Calendar from "../pages/Calendar/index"
 
 // Pages imóveis
 import Imoveis from "../imoveis";
+import Blog from "../blog";
+import Category from "../blogCategory";
+import Ingaia from "../ingaia";
+import IngaiaClientes from "../ingaiaClientes";
+import IngaiaEmpreendimentos from "../ingaiaEmpreendimentos";
+import PerfilIngaia from "../perfilIngaia";
 import ImoveisDestaque from "../imoveisDestaque";
-import ImoveisOpportunity from "../imoveisOpportunity"
+import ImoveisOpportunity from "../imoveisOpportunity";
+import ImoveisChaves from "../imoveisChaves";
+import ImoveisCanal from "../imoveisCanal";
+import ImoveisDwv from "../imoveisDwv";
+
+// Pages Email
+import EmailTemplate from "../emailTemplate";
 
 //Email
 import EmailInbox from "../pages/Email/email-inbox"
@@ -97,12 +109,14 @@ import Pages404 from "../pages/Extra Pages/pages-404";
 import Pages500 from "../pages/Extra Pages/pages-500";
 
 //Update pages
+import { UpdatePost } from "../UpdatePost";
 import { UpdateImovel } from "../UpdateImovel";
 import { UpdateSkill } from "../UpdateSkill";
 import { UpdateBuild } from "../UpdateBuild";
 import { UpdateImage } from "../UpdateImage";
 
 //Create pages
+import { CreatePost } from "../CreatePost";
 import { CreateImovel } from "../CreateImovel";
 import { ImobilleSkill } from "../ImobilleSkill";
 import { BuildSkill } from "../BuildSkill";
@@ -116,8 +130,20 @@ const userRoutes = [
 
   // //imoveis
   { path: "/imoveis", component: Imoveis },
+  { path: "/blog", component: Blog },
+  { path: "/category", component: Category },
+  { path: "/ingaia", component: Ingaia },
+  { path: "/ingaiaClientes", component: IngaiaClientes },
+  { path: "/ingaiaEmpreendimentos", component: IngaiaEmpreendimentos },
+  { path: "/perfilIngaia", component: PerfilIngaia },
   { path: "/imoveisDestaque", component: ImoveisDestaque },
   { path: "/imoveisOpportunity", component: ImoveisOpportunity },
+  { path: "/imoveisChaves", component: ImoveisChaves },
+  { path: "/imoveisCanal", component: ImoveisCanal },
+  { path: "/imoveisDwv", component: ImoveisDwv },
+
+  // //emails
+  { path: "/emailTemplate", component: EmailTemplate },
 
   // // //profile
   { path: "/profile", component: UserProfile },
@@ -190,12 +216,14 @@ const userRoutes = [
   { path: "/pages-blank", component: PagesBlank },
 
   //Update pages
+  { path: "/UpdatePost", component: UpdatePost },
   { path: "/UpdateImovel", component: UpdateImovel },
   { path: "/UpdateSkill", component: UpdateSkill },
   { path: "/UpdateBuild", component: UpdateBuild },
   { path: "/UpdateImage", component: UpdateImage },
 
   //Create pages
+  { path: "/CreatePost", component: CreatePost },
   { path: "/CreateImovel", component: CreateImovel },
   { path: "/ImobilleSkill", component: ImobilleSkill },
   { path: "/BuildSkill", component: BuildSkill },

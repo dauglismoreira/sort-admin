@@ -3,13 +3,15 @@ import axios from 'axios';
 import { Card, CardBody, Row, Col, CardTitle } from "reactstrap"
 import DonutChart from '../AllCharts/DonutChart';
 
+import './Miniwidget.css';
+
 const MonthlyEarnings = props => {
 
     const [selectImoveis, setSelectImoveis] = useState([]);
     const [selectImoveisActive, setSelectImoveisActive] = useState([]);
     const [selectImoveisInactive, setSelectImoveisInactive] = useState([]);
     useEffect((imovel) => {
-        axios.get("https://sort.vps-kinghost.net/api/select/immobile/all")
+        axios.get("https://sort.vps-kinghost.net/api/immobile/select/all")
             .then(response => {
                 setSelectImoveis(response.data)
                 response.data.forEach((imovel) => {
@@ -33,7 +35,7 @@ const MonthlyEarnings = props => {
                 <CardBody>
                     <CardTitle className="h4 mb-4">Imóveis Cadastrados</CardTitle>
 
-                    <Row className="text-center mt-4">
+                    <Row className="text-center mt-4 circle-immobile">
                         <div className="col-6">
                             <h5 className="font-size-20">{selectImoveisActive.length}</h5>
                             <p className="text-muted">Ativos</p>

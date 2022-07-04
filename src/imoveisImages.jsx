@@ -7,7 +7,7 @@ class ImoveisImages extends Component {
   };
 
   loadImages = async () => {
-    const imagesResponse = fetch(`https://sort.vps-kinghost.net/api/select/immobile/media/${this.props.id}`);
+    const imagesResponse = fetch(`https://sort.vps-kinghost.net/api/immobile/select/media/${this.props.id}`);
     const [images] = await Promise.all([imagesResponse]);
     const imagesJson = await images.json();
     this.setState({ images: imagesJson });
@@ -28,7 +28,7 @@ class ImoveisImages extends Component {
         {images.filter(images => images.position === 1).map((image, i) => (
           < div key={i} className="picture" style={
             {
-              backgroundImage: ` url(https://sort.vps-kinghost.net/media/immobile/${this.props.id}/${image.url})`
+              backgroundImage: ` url(${image.url})`
             }}>
           </div>
         ))}

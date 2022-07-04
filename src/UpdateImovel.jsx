@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { setBreadcrumbItems } from './store/actions';
 import { Link } from 'react-router-dom';
+import { withRouter } from "react-router";
 import dateFormat, { masks } from "dateformat";
+import PropTypes from "prop-types";
 
 import './UpdateImovel.css';
 import { preventDefault } from '@fullcalendar/common';
@@ -22,6 +24,7 @@ class UpdateImovel extends React.Component {
       sku: '',
       name: '',
       url_parameter: '',
+      code_product: '',
       price: '',
       zone: '',
       rooms: '',
@@ -45,13 +48,26 @@ class UpdateImovel extends React.Component {
       iptu: '',
       status: '',
       best: '',
+      integration: '',
       opportunity: '',
       observation: '',
       condition: '',
       consultant: '',
-      price_previous: '0'
+      price_previous: '0',
+      partnership: '',
+      demi_suite: '',
+      zone_full: '',
+      tax: '',
+      title_description: '',
+      tax_data: '',
+      show_map: '',
+      show_map_data: '',
+      integration_zap: ''
     };
 
+    this.handleChangeZoneFull = this.handleChangeZoneFull.bind(this);
+    this.handleChangePartnership = this.handleChangePartnership.bind(this);
+    this.handleChangeDemiSuite = this.handleChangeDemiSuite.bind(this);
     this.handleChangeObservation = this.handleChangeObservation.bind(this);
     this.handleChangeCondition = this.handleChangeCondition.bind(this);
     this.handleChangeOwner = this.handleChangeOwner.bind(this);
@@ -80,16 +96,24 @@ class UpdateImovel extends React.Component {
     this.handleChangeCapture = this.handleChangeCapture.bind(this);
     this.handleChangeFee = this.handleChangeFee.bind(this);
     this.handleChangeIptu = this.handleChangeIptu.bind(this);
+    this.handleChangeTitleDesc = this.handleChangeTitleDesc.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   componentDidMount() {
     this.loadOptions();
+
   }
 
   loadOptions = async () => {
-    const id = localStorage.getItem('id');
-    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/select/immobile/' + id);
+    const id = location.search.replace('?', '');
+    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/immobile/select/' + id);
     const [imovel] = await Promise.all([imovelResponse]);
     const imovelJson = await imovel.json();
     this.setState({ imovel: imovelJson });
@@ -110,6 +134,20 @@ class UpdateImovel extends React.Component {
           document.getElementById('fiador').click()
         }, 300);
       }
+
+      if (imovelJson[0].tax === '1') {
+        setTimeout(() => {
+          document.getElementById('tax').click()
+        }, 300);
+      }
+
+      if (imovelJson[0].show_map == '1') {
+        setTimeout(() => {
+          document.getElementById('show_map').click()
+        }, 300);
+      } else {
+        this.setState({ show_map_data: '0' })
+      }
     }
 
     this.setState({ owner: imovelJson[0].owner });
@@ -117,6 +155,7 @@ class UpdateImovel extends React.Component {
     this.setState({ condition: imovelJson[0].business_condition });
     this.setState({ unity: imovelJson[0].unity });
     this.setState({ status: imovelJson[0].status });
+    this.setState({ integration: imovelJson[0].integration });
     this.setState({ best: imovelJson[0].best });
     this.setState({ opportunity: imovelJson[0].opportunity });
     this.setState({ objective: imovelJson[0].objective });
@@ -133,6 +172,7 @@ class UpdateImovel extends React.Component {
     this.setState({ suites: imovelJson[0].suites });
     this.setState({ bathrooms: imovelJson[0].bathrooms });
     this.setState({ garage: imovelJson[0].garage });
+    this.setState({ code_product: location.search.replace('?', '') });
     this.setState({ city: imovelJson[0].city });
     this.setState({ address: imovelJson[0].address });
     this.setState({ complement: imovelJson[0].complement });
@@ -149,7 +189,13 @@ class UpdateImovel extends React.Component {
     this.setState({ typeRent: [] });
     this.setState({ seguro: true });
     this.setState({ fiador: true });
-
+    this.setState({ partnership: imovelJson[0].partnership });
+    this.setState({ demi_suite: imovelJson[0].demi_suite });
+    this.setState({ zone_full: imovelJson[0].zone_full });
+    this.setState({ tax: imovelJson[0].tax });
+    this.setState({ title_description: imovelJson[0].title_description });
+    this.setState({ show_map: imovelJson[0].show_map });
+    this.setState({ integration_zap: imovelJson[0].integration_zap })
   }
 
   handleChangeCalcao = e => {
@@ -197,7 +243,32 @@ class UpdateImovel extends React.Component {
       console.log(this.state.typeRent);
     }, 300);
   };
+  handleChangeTax = e => {
+    this.setState({ tax: e.target.checked });
+    setTimeout(() => {
+      if (this.state.tax !== false) {
+        this.setState({ tax_data: '1' });
+      } else {
+        this.setState({ tax_data: '0' });
+      }
+      console.log(this.state.tax_data);
+    }, 300);
+  };
 
+  handleChangeShowMap = e => {
+    this.setState({ show_map: e.target.checked });
+    setTimeout(() => {
+      if (this.state.show_map !== false) {
+        this.setState({ show_map_data: '1' });
+      } else if (this.state.show_map) {
+        this.setState({ show_map_data: '0' });
+      } else if (this.state.show_map == '') {
+        this.setState({ show_map_data: '0' });
+      } else {
+        this.setState({ show_map_data: '0' });
+      }
+    }, 300);
+  };
 
   handleChangeFee(event) { this.setState({ fee: event.target.value }); }
   handleChangeCondition(event) { this.setState({ condition: event.target.value }); }
@@ -227,7 +298,27 @@ class UpdateImovel extends React.Component {
   handleChangeLng(event) { this.setState({ lng: event.target.value }); }
   handleChangeDescription(event) { this.setState({ description: event.target.value }); }
   handleChangeCapture(event) { this.setState({ consultant: event.target.value }); }
-
+  handleChangeTitleDesc(event) { this.setState({ title_description: event.target.value }); }
+  loadCordenadas(event) {
+    const address = this.state.address;
+    const number = this.state.number;
+    const city = this.state.city;
+    if (address !== '') {
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + ',' + number + ',' + city + '&key=AIzaSyBswLCO_NJ1ZPqCfxFr6aNX0pyaw1SyhvM')
+        .then(response => {
+          this.setState({ lat: response.data.results[0].geometry.location.lat })
+          this.setState({ lng: response.data.results[0].geometry.location.lng })
+        })
+    } else {
+      alert("Você precisa inserir um CEP para encontrar as coordenadas.")
+    }
+  }
+  handleChangePartnership(event) { this.setState({ partnership: event.target.value }); }
+  handleChangeDemiSuite(event) { this.setState({ demi_suite: event.target.value }); }
+  handleChangeZoneFull(event) {
+    const zoneFull = event.target.value;
+    this.setState({ zone_full: zoneFull })
+  }
   mascaraMoeda = () => {
     var tecla = (!event) ? window.event.keyCode : event.which;
     var cont = document.getElementById('price').value;
@@ -275,6 +366,7 @@ class UpdateImovel extends React.Component {
     const dataObservation = this.state.observation;
     const dataUnity = this.state.unity;
     const dataStatus = this.state.status;
+    const dataIntegration = this.state.integration;
     const dataBest = this.state.best;
     const dataOpportunity = this.state.opportunity;
     const dataObjective = this.state.objective;
@@ -305,10 +397,19 @@ class UpdateImovel extends React.Component {
     const dataFee = this.state.fee;
     const dataIptu = this.state.iptu;
     const dataDate = new Date();
-    const id = localStorage.getItem('id');
+    const id = location.search.replace('?', '');
+    const dataPartnership = this.state.partnership;
+    const dataDemiSuite = this.state.demi_suite;
+    const dataZoneFull = this.state.zone_full;
+    const dataTitleDesc = this.state.title_description;
+    const dataTax = this.state.tax_data;
+    const dataShowMap = this.state.show_map_data;
+    const dataIntegrationZap = this.state.integration_zap;
     const data = {
+      id: id,
       owner: dataOwner,
-      integration: 0,
+      integration: dataIntegration,
+      integration_zap: dataIntegrationZap,
       whatsapp: dataWhatsapp,
       unity: dataUnity,
       observation: dataObservation,
@@ -323,6 +424,7 @@ class UpdateImovel extends React.Component {
       price: dataPriceFinal,
       price_previous: dataPricePrevFinal,
       zone: dataZone,
+      zone_full: dataZoneFull,
       rooms: dataRooms,
       suites: dataSuites,
       bathrooms: dataBathrooms,
@@ -341,23 +443,31 @@ class UpdateImovel extends React.Component {
       type_rent: dataTypeRent,
       description: dataDescription,
       business_condition: dataCondition,
-      date_post: dataDate
+      date_post: dataDate,
+      partnership: dataPartnership,
+      demi_suite: dataDemiSuite,
+      title_description: dataTitleDesc,
+      tax: dataTax,
+      show_map: dataShowMap
     };
-    axios.put('https://sort.vps-kinghost.net/api/update/immobile/' + id, data)
+
+    axios.put('https://sort.vps-kinghost.net/api/immobile/update', data)
       .then(response => {
         alert("Imóvel atualizado com " + response.data.message)
+        console.log(data)
         window.location.reload();
       });
   }
 
   render() {
-    const { type_immobile, condition, price_previous, observation, fee, iptu, owner, whatsapp, unity, consultant, objective, sku, name, url_parameter, price, zone, rooms, garage, bathrooms, suites, city, address, complement, number, cep, district, lat, lng, description, imovel } = this.state;
+    const { type_immobile, title_description, zone_full, partnership, demi_suite, condition, price_previous, code_product, observation, fee, iptu, owner, whatsapp, unity, consultant, objective, sku, name, url_parameter, price, zone, rooms, garage, bathrooms, suites, city, address, complement, number, cep, district, lat, lng, description, imovel } = this.state;
     return (
       <div className="update-form">
         <form onSubmit={this.handleSubmit}>
           {imovel.map((imovel, index) => (
             <div key={index}>
               <span className="last-update"><b>Última atualização:</b>{dateFormat(imovel.date_post, "  d/mm/yyyy, h:MM:ss TT")}</span>
+              <small>Campos em destaque são exibidos no site</small>
               <div className="step-container">
                 <h3>Sobre o proprietário</h3>
                 <div className="container-form">
@@ -372,14 +482,14 @@ class UpdateImovel extends React.Component {
               <div className="step-container">
                 <h3>Sobre o negócio</h3>
                 <div className="container-form">
-                  <label><span>Negócio</span>
+                  <label className="front"><span>Negócio</span>
                     <select type="text" value={objective}
                       onChange={this.handleChangeObjective} placeholder={imovel.objective}>
                       <option value={null}>Selecione um negócio</option>
                       <option value="sell">Venda</option>
                       <option value="rent">Locação</option>
                     </select></label>
-                  <label><span>Tipo do Imóvel</span>
+                  <label className="front"><span>Tipo do Imóvel</span>
                     <select type="text" value={type_immobile}
                       onChange={this.handleChangeType} placeholder={imovel.type_immobile}>
                       <option value={null}>Selecione um tipo</option>
@@ -403,34 +513,40 @@ class UpdateImovel extends React.Component {
                     <label className="check-box-label"><input id="fianca" type="checkbox" defaultChecked={this.state.seguro} onClick={this.handleChangeSeguro}></input>Seguro Fiança</label>
                     <label className="check-box-label"><input id="fiador" type="checkbox" defaultChecked={this.state.fiador} onClick={this.handleChangeFiador}></input>Fiador</label>
                   </div>
-                  <label><span>Condições de Pagamento</span><textarea type="text" rows={3} cols={4} value={condition}
-                    onChange={this.handleChangeCondition} placeholder={imovel.business_condition}></textarea></label>
                   <label><span>Observação</span><textarea type="text" rows={3} cols={4} value={observation}
                     onChange={this.handleChangeObservation} placeholder={imovel.observation}></textarea></label>
+                  <label><span>Parceria com corretor</span><input type="text" value={partnership}
+                    onChange={this.handleChangePartnership} placeholder={imovel.partnership}></input></label>
                 </div>
               </div>
               <div className="step-container">
                 <h3>Sobre o imóvel</h3>
                 <div className="container-form">
-                  <label><span>Código</span><span>{imovel.sku}</span></label>
-                  <label><span>Nome do Imóvel</span><input type="text" value={name}
+                  <label className="front"><span>Código</span><span>{imovel.sku}</span></label>
+                  <label className="front"><span>Nome do Imóvel</span><input type="text" value={name}
                     onChange={this.handleChangeName} placeholder={imovel.name} maxLength="55"></input></label>
                   <label><span>Url</span><input type="text" value={url_parameter}
                     onChange={this.handleChangeUrl} placeholder={imovel.url_parameter} maxLength="55"></input></label>
-                  <label><span>Metragem</span><input type="text" value={zone}
+                  <label className="front"><span>Metragem Útil</span><input type="text" value={zone}
                     onChange={this.handleChangeZone} placeholder={imovel.zone}></input></label>
-                  <label><span>Valor RISCADO em R$</span><input id="price-prev" type="text" placeholder={price_previous}
+                  <label className="front"><span>Metragem Total</span><input type="text" value={zone_full}
+                    onChange={this.handleChangeZoneFull} placeholder={imovel.zone_full} required></input></label>
+                  <label className="front"><span>Valor RISCADO em R$</span><input id="price-prev" type="text" placeholder={price_previous}
                     onChange={this.handleChangePricePrev} value={price_previous}></input></label>
-                  <label><span>Valor em R$</span><input id="price" type="text" placeholder={imovel.price}
+                  <label className="front"><span>Valor em R$</span><input id="price" type="text" placeholder={imovel.price}
                     onChange={this.handleChangePrice} value={price}></input></label>
-                  <label><span>Nº de Quartos</span><input type="number" value={rooms}
+                  <label className="front"><span>Nº de Quartos</span><input type="number" value={rooms}
                     onChange={this.handleChangeRooms} placeholder={imovel.rooms}></input></label>
-                  <label><span>Nº de Suítes</span><input type="number" value={suites}
+                  <label className="front"><span>Nº de Demi-Suítes</span><input type="number" value={demi_suite}
+                    onChange={this.handleChangeDemiSuite} placeholder={imovel.demi_suite}></input></label>
+                  <label className="front"><span>Nº de Suítes</span><input type="number" value={suites}
                     onChange={this.handleChangeSuites} placeholder={imovel.suites}></input></label>
                   <label><span>Nº de Banheiros</span><input type="number" value={bathrooms}
                     onChange={this.handleChangeBathrooms} placeholder={imovel.bathrooms}></input></label>
-                  <label><span>Vagas de Garagem</span><input type="number" value={garage}
+                  <label className="front"><span>Vagas de Garagem</span><input type="number" value={garage}
                     onChange={this.handleChangeGarage} placeholder={imovel.garage}></input></label>
+                  <label className="front"><span>Condições de Pagamento</span><textarea type="text" rows={3} cols={4} value={condition}
+                    onChange={this.handleChangeCondition} placeholder={imovel.business_condition}></textarea></label>
                 </div>
               </div>
               <div className="step-container">
@@ -446,28 +562,32 @@ class UpdateImovel extends React.Component {
                     onChange={this.handleChangeComplement} placeholder={imovel.complement}></input></label>
                   <label><span>Bairro</span><input type="text" value={district}
                     onChange={this.handleChangeDistrict} placeholder={imovel.district}></input></label>
-                  <label><span>Cidade</span><input type="text" value={city}
+                  <label className="front"><span>Cidade</span><input type="text" value={city}
                     onChange={this.handleChangeCity} placeholder={imovel.city}></input></label>
                   <label><span>Latitude</span><input type="text" value={lat}
                     onChange={this.handleChangeLat} placeholder={imovel.lat}></input></label>
                   <label><span>Longitude</span><input type="text" value={lng}
                     onChange={this.handleChangeLng} placeholder={imovel.lng}></input></label>
+                  <label className="front check-box-label"><input id="show_map" type="checkbox" defaultChecked={this.state.show_map} onClick={this.handleChangeShowMap}></input>Exibir indicador no mapa</label>
                 </div>
               </div>
               <div className="step-container">
                 <h3>Descrição e Captador</h3>
                 <div className="container-form desc">
-                  <label><span>Captação</span><input type="text" value={consultant}
+                  <label className="front"><span>Captação</span><input type="text" value={consultant}
                     onChange={this.handleChangeCapture} placeholder={imovel.consultant}></input></label>
-                  <label><span>Descrição</span><textarea type="text" rows={10} cols={4} value={description}
+                  <label className="front"><span>Título da Descrição</span><input type="text" value={title_description}
+                    onChange={this.handleChangeTitleDesc} placeholder="Título da Descrição"></input></label>
+                  <label className="front"><span>Descrição</span><textarea type="text" rows={10} cols={4} value={description}
                     onChange={this.handleChangeDescription} placeholder={imovel.description}></textarea></label>
+                  <label className="front check-box-label tax"><input id="tax" type="checkbox" defaultChecked={this.state.tax} onClick={this.handleChangeTax}></input>Taxas inclusas?</label>
                 </div>
               </div>
             </div>
           ))}
           <div className="container-button"><button>Atualizar</button></div>
         </form>
-        <div className="container-button"><Link to="/UpdateSkill"><button>Atualizar Características</button></Link></div>
+        <div className="container-button"><Link to={"/UpdateSkill?" + code_product}><button>Atualizar Características</button></Link></div>
       </div >
     );
   }

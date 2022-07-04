@@ -108,26 +108,102 @@ const SidebarContent = props => {
               </Link>
             </li> */}
           </ul>
+
           <ul className="metismenu list-unstyled" id="side-menu">
             <li className="menu-title">{props.t("Imóveis")} </li>
             <li>
               <Link to="/imoveis" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
+                <i className="mdi mdi-sorti"></i>
                 <span>{props.t("Imóveis")}</span>
               </Link>
             </li>
 
             <li>
               <Link to="/imoveisDestaque" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
+                <i className="mdi mdi-destaque"></i>
                 <span>{props.t("Destaques")}</span>
               </Link>
             </li>
 
             <li>
               <Link to="/imoveisOpportunity" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
+                <i className="mdi mdi-foguete"></i>
                 <span>{props.t("Pré Lançamento")}</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/imoveisChaves" className=" waves-effect">
+                <i className="mdi mdi-chaves"></i>
+                <span>{props.t("Chaves na Mão")}</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/imoveisCanal" className=" waves-effect">
+                <i className="mdi mdi-canal"></i>
+                <span>{props.t("Canal Pro")}</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/imoveisDwv" className=" waves-effect">
+                <i className="mdi mdi-dwn"></i>
+                <span>{props.t("DWV")}</span>
+              </Link>
+            </li>
+
+          </ul>
+          <ul className="metismenu list-unstyled" id="side-menu">
+            <li className="menu-title">{props.t("Blog")} </li>
+            <li>
+              <Link to="/blog" className=" waves-effect">
+                <i className="mdi mdi-post"></i>
+                <span>{props.t("Posts")}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/category" className=" waves-effect">
+                <i className="mdi mdi-categoria"></i>
+                <span>{props.t("Categorias")}</span>
+              </Link>
+            </li>
+
+          </ul>
+          <ul className="metismenu list-unstyled" id="side-menu">
+            <li className="menu-title">{props.t("Leads e Emails")} </li>
+            <li>
+              <Link to="/emailTemplate" className=" waves-effect">
+                <i className="mdi mdi-post"></i>
+                <span>{props.t("Templates de E-mail")}</span>
+              </Link>
+            </li>
+            {/* <li>
+              <Link to="/category" className=" waves-effect">
+                <i className="mdi mdi-categoria"></i>
+                <span>{props.t("Categorias")}</span>
+              </Link>
+            </li> */}
+
+          </ul>
+          <ul className="metismenu list-unstyled" id="side-menu">
+            <li className="menu-title">{props.t("Ingaia")} </li>
+            <li>
+              <Link to="/ingaiaEmpreendimentos" className=" waves-effect">
+                <i className="mdi mdi-data"></i>
+                <span>{props.t("Empreendimentos")}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/ingaiaClientes" className=" waves-effect">
+                <i className="mdi mdi-data"></i>
+                <span>{props.t("Clientes")}</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/ingaia" className=" waves-effect">
+                <i className="mdi mdi-data"></i>
+                <span>{props.t("Imóveis")}</span>
               </Link>
             </li>
 
@@ -136,13 +212,13 @@ const SidebarContent = props => {
             <li className="menu-title">{props.t("Configurações")} </li>
             <li>
               <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
+                <i className="mdi mdi-usuarios"></i>
                 <span>{props.t("Usuários")}</span>
               </Link>
             </li>
             <li>
               <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
+                <i className="mdi mdi-permissao"></i>
                 <span>{props.t("Permissões")}</span>
               </Link>
             </li>

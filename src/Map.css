@@ -1,0 +1,98 @@
+.map-h2 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 20px;
+  padding-left: 10px;
+  text-align: center;
+}
+
+.google-map {
+  width: 100%;
+  height: 300px;
+}
+
+.pin {
+  display: flex;
+  align-items: center;
+  width: 180px;
+  color: var(--main-blue);
+}
+
+.pin-icon {
+  font-size: 4rem;
+}
+
+.pin-text {
+  font-size: 1.3em;
+}
+
+@media screen and (min-width: 799px) {
+  .google-map {
+    height: 360px;
+  }
+
+  .map-h2 {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  .pin {
+    width: 15vw;
+  }
+
+  .pin-icon {
+    font-size: 10vw;
+  }
+}
+
+.ingaia .step-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 5px #cdcdcd;
+  border: none;
+}
+
+.imovel-ingaia-foto {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 30px;
+}
+
+.ingaia .step-container.desc {
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+}
+
+.ingaia .step-container.end, .ingaia .step-container.fotos {
+  grid-auto-rows: auto;
+}
+
+
+.ingaia .step-container h3 {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.ingaia .step-container .map {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.ingaia .step-container li b {
+  margin-right: 5px;
+}
+
+.imovel-ingaia-foto-link {
+  width: 160px;
+  height: 90px;
+  background-position: center center;
+  background-size: cover;
+  border-radius: 5px;
+}

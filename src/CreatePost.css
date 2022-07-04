@@ -1,0 +1,36 @@
+.create-post form label {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.create-post form label span {
+  width: 100%;
+  display: block;
+}
+
+.create-post form label input, .create-post form label textarea {
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: solid 1px #cdcdcd;
+}
+
+.create-post form label input {
+  height: 35px;
+}
+
+.create-post form label select {
+  width: 240px;
+  border-radius: 5px;
+  border: solid 1px #cdcdcd;
+  height: 35px;
+}
+
+.post-image-update {
+  width: 200px;
+  height: 80px;
+  background-position: center center;
+  background-size: cover;
+  border-radius: 5px;
+  margin: 5px 0;
+}

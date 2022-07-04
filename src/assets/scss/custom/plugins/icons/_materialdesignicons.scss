@@ -18,6 +18,49 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.mdi-destaque::before {
+  content: "\F04CE";
+}
+.mdi-add-icon::before {
+  content: "\F0416";
+}
+.mdi-foguete::before {
+  content: "\F14DE";
+}
+.mdi-data::before {
+  content: "\F01BC";
+}
+.mdi-permissao::before {
+  content: "\F000B";
+}
+.mdi-usuarios::before {
+  content: "\F0004";
+}
+.mdi-post::before {
+  content: "\F1008";
+}
+.mdi-categoria::before {
+  content: "\F024B";
+}
+
+
+.mdi-sorti::before {
+  content: "\F0D15";
+}
+
+.mdi-chaves::before {
+  content: "\F0306";
+}
+
+.mdi-canal::before {
+  content: "\F0975";
+}
+
+.mdi-dwn::before {
+  content: "\F0DD4";
+}
+
+
 .mdi-ab-testing::before {
   content: "\F01C9";
 }

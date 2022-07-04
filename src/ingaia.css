@@ -1,0 +1,75 @@
+.imovel-ingaia {
+  margin-bottom: 10px;
+}
+
+.container-ingaia-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  border-bottom: solid 1px #cdcdcd;
+  padding: 20px 0;
+}
+
+.container-ingaia-list .ingaia-ref,
+.container-ingaia-list .ingaia-bairro,
+.container-ingaia-list .ingaia-city {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.ingaia-cliente-imovel {
+  flex: 10;
+}
+
+.ingaia-cliente-imovel-title {
+  flex: 10;
+  display: flex;
+  align-items: center;
+}
+
+.row-imoveis.ingaia {
+  min-height: 35px !important;
+}
+
+.container-ingaia-list .ingaia-name {
+  flex: 3;
+  padding: 0 10px;
+}
+
+.search-labels {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.search-labels div {
+  margin-left: 15px;
+}
+
+.search-labels input {
+  margin-left: 5px;
+}
+
+.ingaia-cliente-imovel ul {
+  list-style: none;
+  padding-left: 0;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.ingaia-cliente-imovel li {
+  margin: 6px;
+  background-color: #2f734c49;
+  padding: 3px 5px;
+  border-radius: 20px;
+}
+
+.ingaia-ref {
+  font-weight: 600;
+}
+
+.ingaia-ref span {
+  font-size: 10px;
+  font-weight: 400;
+}

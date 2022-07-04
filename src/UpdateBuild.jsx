@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
 
 import './UpdateImovel.css';
 import del from './assets/images/delete.png';
@@ -41,21 +42,37 @@ class UpdateBuild extends React.Component {
       seguro: '',
       fiador: '',
       fee: '',
+      code_product: '',
       iptu: '',
       status: '',
       best: '',
       opportunity: '',
       observation: '',
-      consultant: ''
+      consultant: '',
+      partnership: '',
+      demi_suite: '',
+      zone_full: '',
+      tax: '',
+      title_description: '',
+      tax_data: '',
+      show_map: '',
+      show_map_data: '',
+      integration_zap: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   loadDetails = async () => {
-    const id = localStorage.getItem('id');
-    const detailsResponse = fetch('https://sort.vps-kinghost.net/api/select/immobile/details/building/' + id);
+    const id = location.search.replace('?', '');
+    const detailsResponse = fetch('https://sort.vps-kinghost.net/api/immobile/select/details/building/' + id);
     const [details] = await Promise.all([detailsResponse]);
     const detailsJson = await details.json();
     this.setState({ details: detailsJson });
@@ -67,8 +84,8 @@ class UpdateBuild extends React.Component {
   }
 
   loadOptions = async () => {
-    const id = localStorage.getItem('id');
-    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/select/immobile/' + id);
+    const id = location.search.replace('?', '');
+    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/immobile/select/' + id);
     const [imovel] = await Promise.all([imovelResponse]);
     const imovelJson = await imovel.json();
     this.setState({ imovel: imovelJson });
@@ -77,6 +94,7 @@ class UpdateBuild extends React.Component {
     this.setState({ whatsapp: imovelJson[0].whatsapp });
     this.setState({ unity: imovelJson[0].unity });
     this.setState({ status: imovelJson[0].status });
+    this.setState({ code_product: location.search.replace('?', '') });
     this.setState({ best: imovelJson[0].best });
     this.setState({ opportunity: imovelJson[0].opportunity });
     this.setState({ objective: imovelJson[0].objective });
@@ -104,12 +122,24 @@ class UpdateBuild extends React.Component {
     this.setState({ iptu: imovelJson[0].iptu });
     this.setState({ observation: imovelJson[0].observation });
     this.setState({ typeRent: imovelJson[0].type_rent });
+    this.setState({ partnership: imovelJson[0].partnership });
+    this.setState({ demi_suite: imovelJson[0].demi_suite });
+    this.setState({ zone_full: imovelJson[0].zone_full });
+    this.setState({ tax: imovelJson[0].tax });
+    this.setState({ integration_zap: imovelJson[0].integration_zap })
+    if (imovelJson[0].show_map !== null && imovelJson[0].show_map !== '') {
+      this.setState({ show_map_data: imovelJson[0].show_map });
+    } else {
+      this.setState({ show_map_data: '0' });
+    }
+    this.setState({ title_description: imovelJson[0].title_description });
   }
 
   handleChange(event) { this.setState({ value: event.target.value }); }
 
   handleSubmit = () => {
     event.preventDefault()
+    const id = location.search.replace('?', '');
     const dataTypeRent = this.state.typeRent;
     const dataOwner = this.state.owner;
     const dataWhatsapp = this.state.whatsapp;
@@ -142,15 +172,23 @@ class UpdateBuild extends React.Component {
     const dataCapture = this.state.consultant;
     const dataFee = this.state.fee;
     const dataIptu = this.state.iptu;
+    const dataPartnership = this.state.partnership;
+    const dataDemiSuite = this.state.demi_suite;
+    const dataZoneFull = this.state.zone_full;
+    const dataTitleDesc = this.state.title_description;
+    const dataTax = this.state.tax_data;
+    const dataShowMap = this.state.show_map_data;
+    const dataIntegrationZap = this.state.integration_zap;
     const dataDate = new Date();
-    const id = localStorage.getItem('id');
     const dataDateFull = {
+      id: id,
       owner: dataOwner,
       whatsapp: dataWhatsapp,
       unity: dataUnity,
       observation: dataObservation,
       status: dataStatus,
       best: dataBest,
+      integration_zap: dataIntegrationZap,
       opportunity: dataOpportunity,
       objective: dataObjective,
       type_immobile: dataType,
@@ -159,6 +197,7 @@ class UpdateBuild extends React.Component {
       url_parameter: dataUrl,
       price: dataPriceFinal,
       zone: dataZone,
+      zone_full: dataZoneFull,
       rooms: dataRooms,
       suites: dataSuites,
       bathrooms: dataBathrooms,
@@ -176,55 +215,62 @@ class UpdateBuild extends React.Component {
       iptu: dataIptu,
       type_rent: dataTypeRent,
       description: dataDescription,
-      date_post: dataDate
+      date_post: dataDate,
+      partnership: dataPartnership,
+      demi_suite: dataDemiSuite,
+      title_description: dataTitleDesc,
+      tax: dataTax,
+      show_map: dataShowMap
     };
 
-    let linhas = this.state.value.split('\n');
+    let linhas = this.state.value.replace("'", "@").split('\n');
     const value = linhas;
     const data = {
       id_product: id,
       details: value,
       type_details: 'building'
     };
-    axios.post('https://sort.vps-kinghost.net/api/post/immobile/details/', data)
-    axios.put('https://sort.vps-kinghost.net/api/update/immobile/' + id, dataDateFull)
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
+    axios.post('https://sort.vps-kinghost.net/api/immobile/create/details', data)
+
+    axios.put('https://sort.vps-kinghost.net/api/immobile/update', dataDateFull)
+      .then(response => {
+        window.location.reload();
+      });
   }
 
   handleDelete = (details) => {
-    const id = localStorage.getItem('id');
+    const id = location.search.replace('?', '');
     const data = {
       id_product: id,
       id: details
     };
-    axios.post('https://sort.vps-kinghost.net/api/delete/immobile/details/', data)
-    setTimeout(() => {
-      window.location.reload();
-    }, 300);
+    axios.post('https://sort.vps-kinghost.net/api/immobile/delete/details', data)
+      .then(response => {
+        window.location.reload();
+      });
   }
 
   render() {
-    const { value, details } = this.state;
+    const { value, details, code_product } = this.state;
     return (
       <div className="update-form">
-        <div className="step-container">
+        <div className="step-container carac">
           <form onSubmit={this.handleSubmit}>
             <h3>Característica do Empreendimento</h3>
             <div className="container-form">
-              <label>Característica do Empreendimento<textarea type="text" value={value} rows={10} cols={4}
-                onChange={this.handleChange}></textarea></label>
+              <label><span>Característica do Empreendimento</span>
+                <span><textarea type="text" value={value} rows={10} cols={4}
+                  onChange={this.handleChange}></textarea></span></label>
             </div>
             <div className="container-button"><button>Adicionar</button></div>
           </form>
           <ul className="list-skills">
             {details.map((details, i) => (
-              <li key={i}>{details.details}<img src={del} onClick={() => this.handleDelete(details.id)}></img></li>
+              <li key={i}>{details.details.replace("@", "'")}<img src={del} onClick={() => this.handleDelete(details.id)}></img></li>
             ))}
           </ul >
         </div>
-        <Link to="/UpdateImage"><div className="container-button"><button>Atualizar Imagens</button></div></Link>
+        <Link to={"/UpdateImage?" + code_product}><div className="container-button"><button>Atualizar Imagens</button></div></Link>
 
       </div >
     );

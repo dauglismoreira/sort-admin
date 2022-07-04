@@ -1,11 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { Draggable } from "react-drag-reorder";
+import Teste from './teste';
 
 import './UpdateImovel.css';
 import del from './assets/images/delete.png';
 
 import load from './assets/images/loading-buffering.gif';
+
 
 class UpdateImage extends React.Component {
   constructor() {
@@ -47,11 +51,27 @@ class UpdateImage extends React.Component {
       best: '',
       opportunity: '',
       observation: '',
-      consultant: ''
+      consultant: '',
+      partnership: '',
+      demi_suite: '',
+      zone_full: '',
+      tax: '',
+      title_description: '',
+      tax_data: '',
+      show_map: '',
+      show_map_data: '',
+      integration_zap: ''
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
   }
+
+
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
 
   componentDidMount() {
     this.loadImages();
@@ -59,8 +79,8 @@ class UpdateImage extends React.Component {
   }
 
   loadOptions = async () => {
-    const id = localStorage.getItem('id');
-    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/select/immobile/' + id);
+    const id = location.search.replace('?', '');
+    const imovelResponse = fetch('https://sort.vps-kinghost.net/api/immobile/select/' + id);
     const [imovel] = await Promise.all([imovelResponse]);
     const imovelJson = await imovel.json();
     this.setState({ imovel: imovelJson });
@@ -96,28 +116,39 @@ class UpdateImage extends React.Component {
     this.setState({ iptu: imovelJson[0].iptu });
     this.setState({ observation: imovelJson[0].observation });
     this.setState({ typeRent: imovelJson[0].type_rent });
+    this.setState({ partnership: imovelJson[0].partnership });
+    this.setState({ demi_suite: imovelJson[0].demi_suite });
+    this.setState({ zone_full: imovelJson[0].zone_full });
+    this.setState({ tax: imovelJson[0].tax });
+    this.setState({ integration_zap: imovelJson[0].integration_zap })
+    if (imovelJson[0].show_map !== null && imovelJson[0].show_map !== '') {
+      this.setState({ show_map_data: imovelJson[0].show_map });
+    } else {
+      this.setState({ show_map_data: '0' });
+    }
+    this.setState({ title_description: imovelJson[0].title_description });
   }
 
   handleDelete = (images) => {
-    event.preventDefault()
-    const id = localStorage.getItem('id');
+    const id = location.search.replace('?', '');
     const data = {
       id_product: id,
       medias: [images]
     };
     console.log(data)
-    axios.post('https://sort.vps-kinghost.net/api/delete/immobile/media/', data);
+    axios.post('https://sort.vps-kinghost.net/api/immobile/delete/media/', data);
     setTimeout(() => {
       window.location.reload();
     }, 300);
   }
 
   loadImages = async () => {
-    const id = localStorage.getItem('id');
-    const imagesResponse = fetch('https://sort.vps-kinghost.net/api/select/immobile/media/' + id);
+    const id = location.search.replace('?', '');
+    const imagesResponse = fetch('https://sort.vps-kinghost.net/api/immobile/select/media/' + id);
     const [images] = await Promise.all([imagesResponse]);
     const imagesJson = await images.json();
     this.setState({ images: imagesJson });
+
   }
 
   handleInputChange(event) {
@@ -128,6 +159,7 @@ class UpdateImage extends React.Component {
 
   submit() {
     event.preventDefault()
+    const id = location.search.replace('?', '');
     const dataTypeRent = this.state.typeRent;
     const dataOwner = this.state.owner;
     const dataWhatsapp = this.state.whatsapp;
@@ -160,15 +192,23 @@ class UpdateImage extends React.Component {
     const dataCapture = this.state.consultant;
     const dataFee = this.state.fee;
     const dataIptu = this.state.iptu;
+    const dataPartnership = this.state.partnership;
+    const dataDemiSuite = this.state.demi_suite;
+    const dataZoneFull = this.state.zone_full;
+    const dataTitleDesc = this.state.title_description;
+    const dataTax = this.state.tax_data;
+    const dataShowMap = this.state.show_map_data;
+    const dataIntegrationZap = this.state.integration_zap;
     const dataDate = new Date();
-    const id = localStorage.getItem('id');
     const dataDateFull = {
+      id: id,
       owner: dataOwner,
       whatsapp: dataWhatsapp,
       unity: dataUnity,
       observation: dataObservation,
       status: dataStatus,
       best: dataBest,
+      integration_zap: dataIntegrationZap,
       opportunity: dataOpportunity,
       objective: dataObjective,
       type_immobile: dataType,
@@ -177,6 +217,7 @@ class UpdateImage extends React.Component {
       url_parameter: dataUrl,
       price: dataPriceFinal,
       zone: dataZone,
+      zone_full: dataZoneFull,
       rooms: dataRooms,
       suites: dataSuites,
       bathrooms: dataBathrooms,
@@ -194,15 +235,19 @@ class UpdateImage extends React.Component {
       iptu: dataIptu,
       type_rent: dataTypeRent,
       description: dataDescription,
-      date_post: dataDate
+      date_post: dataDate,
+      partnership: dataPartnership,
+      demi_suite: dataDemiSuite,
+      title_description: dataTitleDesc,
+      tax: dataTax,
+      show_map: dataShowMap
     };
 
     const data = new FormData()
     data.append('file', this.state.selectedFile)
     console.warn(this.state.selectedFile);
-    let url = "https://sort.vps-kinghost.net/api/post/immobile/media/" + id;
-
-    axios.put('https://sort.vps-kinghost.net/api/update/immobile/' + id, dataDateFull)
+    let url = "https://sort.vps-kinghost.net/api/immobile/create/media/" + id;
+    axios.put('https://sort.vps-kinghost.net/api/immobile/update', dataDateFull)
     axios.post(url, data, {})
       .then(res => {
         console.warn(res);
@@ -214,13 +259,35 @@ class UpdateImage extends React.Component {
         window.location.reload();
       })
     document.getElementById('message').style.display = "flex";
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 1000);
   }
 
+  getChangedPos = (currentPos, newPos) => {
+    const { images } = this.state;
+    const id = location.search.replace('?', '');
+    const prevImg = images[currentPos].position;
+    const upImg = {
+      id: images[currentPos].id,
+      position: newPos,
+      code_product: id
+    };
+    const upImgOld = {
+      id: images[newPos].id,
+      position: prevImg,
+      code_product: id
+    }
+    axios.put("https://sort.vps-kinghost.net/api/immobile/update/media/position", upImg)
+      .then(res => {
+        axios.put("https://sort.vps-kinghost.net/api/immobile/update/media/position", upImgOld)
+          .then(res => {
+            window.location.reload();
+          })
+      }
+      )
+  };
+
   render() {
-    const { value, images, id } = this.state;
+    const id = location.search.replace('?', '');
+    const { value, images, imovel } = this.state;
     return (
       <div>
         <div className="row">
@@ -233,14 +300,22 @@ class UpdateImage extends React.Component {
           </div>
         </div>
         <div className="pictures-container">
-          {images.map((images, i) => (
-            < div key={i} className="picture" style={
-              {
-                backgroundImage: ` url(https://sort.vps-kinghost.net/media/immobile/` + localStorage.getItem('id') + `/${images.url})`
-              }}>
-              <img src={del} onClick={() => this.handleDelete(images.id)}></img>
-            </div>
-          ))}
+          {images.length !== 0 ?
+            <Draggable onPosChange={this.getChangedPos}>
+              {images.sort((c1, c2) => (c1.position > c2.position) ? 1 : -1).map((images, i) => {
+                return (
+                  < div key={i} id={images.id} className="picture" style={
+                    {
+                      backgroundImage: ` url(${images.url})`
+                    }}>
+                    <img src={del} onClick={() => this.handleDelete(images.id)}></img>
+                  </div>
+                )
+              })}
+            </Draggable>
+            :
+            <span></span>
+          }
         </div >
         <div className="container-button"><Link to="/imoveis"><button>Concluído</button></Link></div>
         <div id="message" className="message">

@@ -6,22 +6,43 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 15px;
+  padding: 0 0 0 15px;
   border-bottom: solid 1px #cdcdcd;
+  min-height: 140px;
+}
+
+.row-imoveis.body {
+  background-color: #fff;
+}
+
+.status-box.tit .status {
+  transform: rotate(90deg);
 }
 
 .row-imoveis.title {
-  padding: 5px 15px;
+  padding: 5px 0 0 15px;
+  margin-top: 30px;
 }
 
 .picture {
-  width: 180px;
+  width: 100%;
   max-width: 180px;
   height: 100px;
   background-position: center center;
   background-size: cover;
-  margin: 0 10px;
+  margin: 20px 10px 0;
   border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.picture-box {
+  padding: 15px 0;
+  flex: 2;
+  min-width: 180px;
 }
 
 .sku {
@@ -37,8 +58,33 @@
   align-items: center;
 }
 
+.status-box {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: solid 1px #cdcdcd;
+  position: relative;
+}
+
+.status-box.tit::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #cdcdcd;
+  top: 0;
+}
+
+.status-box.tit::after {
+  content: 'exibição';
+  position: absolute;
+  background-color: #f2f2f2;
+  top: -8px;
+}
+
 .status {
-  flex: 2;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +95,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
+  font-weight: 600;
 }
 
 .update-btn select {
@@ -69,7 +116,7 @@
 
 .container-imovel-options {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
@@ -78,7 +125,7 @@
 }
 
 .container-imovel-options .container-button-add-imovel button {
-  background-color: green;
+  background-color: #2f734c !important;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -86,16 +133,30 @@
   min-width: 160px;
   padding: 8px 15px;
   max-height: 35px;
+  font-weight: 600;
+}
+
+.container-imovel-options .container-button-add-imovel button i {
+  margin-left: 5px;
 }
 
 .container-imovel-options .container-filters {
-  flex: 2;
-  display: flex;
-  justify-content: flex-end;
+  flex: 1;
 }
 
-.container-imovel-options .container-filters div {
-  margin-left: 30px;
+.container-imovel-options .filters-title {
+  color: #2f734c !important;
+  margin-bottom: 20px;
+}
+
+.container-imovel-options .filters-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container-imovel-options .filters-input div {
+  flex: 1;
 }
 
 .container-imovel-options .container-filters input, .container-imovel-options .container-filters select {
@@ -147,6 +208,34 @@
   background-color: green;
 }
 
+.integrationImage {
+  background-image: url('./assets/images/chaves-grey.png');
+  background-position: center center;
+  background-size: contain;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+
+.integrationImage.active {
+  background-image: url('./assets/images/chaves-color.png');
+}
+
+.integrationImageZap {
+  background-image: url('./assets/images/canal-grey.png');
+  background-position: center center;
+  background-size: contain;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+}
+
+.integrationImageZap.active {
+  background-image: url('./assets/images/canal-color.png');
+}
+
 .update-btn button {
   border-radius: 20px;
   border: none;
@@ -155,4 +244,86 @@
 
 .breadcrumb {
   display: none !important;
+}
+
+.container-filters {
+  background-color: #2f734c49;
+  border-radius: 10px;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.list-category img {
+  max-width: 30px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationItem {
+  background: #fff;
+  border: 2px solid #666;
+  padding: 10px 15px;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  position: relative;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.paginationItem span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.prev,
+.next {
+  background: #fff;
+  border: none;
+  padding: 10px;
+  color: blue;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.paginationItem.active {
+  border: 1px solid #fff;
+  color: #fff;
+  pointer-events: none;
+  background-color: #2f734c;
+}
+
+.prev.disabled,
+.next.disabled {
+  pointer-events: none;
+  box-shadow: none;
+  color: #999;
+}
+
+#by-order-container {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.pagination {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#by-order-container select {
+  margin-left: 10px;
+  height: 40px;
+  border: #cdcdcd solid 1px;
+  border-radius: 5px;
+  padding: 5px;
+  width: 160px;
 }
